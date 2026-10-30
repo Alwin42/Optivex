@@ -1,0 +1,18 @@
+{
+  "user": { "name": "Alwin", "role": "Quality Inspector" },
+  "productionLine": "Line 4 - Sprite Bottling",
+  "realTimeStats": { "totalScanned": 1450, "goodBottles": 1380, "defectiveBottles": 70, "efficiency": "95.1%" },
+  "chartData": [
+    { "time": "08:00", "good": 120, "defective": 5 },
+    { "time": "10:00", "good": 150, "defective": 8 },
+    { "time": "12:00", "good": 140, "defective": 12 },
+    { "time": "14:00", "good": 160, "defective": 6 },
+    { "time": "16:00", "good": 130, "defective": 9 }
+  ],
+  "tableData": [
+    { "id": "BTL-001", "status": "Good", "time": "08:15 AM", "inspector": "Alwin" },
+    { "id": "BTL-002", "status": "Defective", "defectType": "Dented", "time": "08:22 AM", "inspector": "Alwin" },
+    { "id": "BTL-003", "status": "Good", "time": "08:45 AM", "inspector": "Alwin" },
+    { "id": "BTL-004", "status": "Defective", "defectType": "Label Damaged", "time": "09:10 AM", "inspector": "Alwin" }
+  ]
+}
