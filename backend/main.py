@@ -56,7 +56,7 @@ def generate_stream():
             continue
             
         # Run YOLO inference (CPU optimized)
-        results = model(frame, conf=0.4, imgsz=480, verbose=False)
+        results = model(frame, conf=0.7, imgsz=480, verbose=False)
         
         # Update Stats
         detected_classes = [model.names[int(box.cls[0])] for box in results[0].boxes]
