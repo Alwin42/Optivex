@@ -1,6 +1,19 @@
 "use client";
 
 import dashboardData from "../../data/dashboardData.json";
+import Navbar from "@/components/Navbar";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import type { ChartConfig } from "@/components/ui/chart";
+import { BarChart, Bar, CartesianGrid, XAxis } from "recharts";
+
+const chartConfig = {
+  good: { label: "Good", color: "#FF6B00" },
+  defective: { label: "Defective", color: "#E5E5E5" },
+} satisfies ChartConfig;
 
 const { user, productionLine, realTimeStats, chartData, tableData } =
   dashboardData;
@@ -32,7 +45,7 @@ export default function Dashboard() {
           className="md:col-span-2 md:row-span-2 bg-[#FFFFFF] border border-[#E5E5E5] rounded-3xl p-4 hover:shadow-lg hover:border-[#FF6B00]/40 transition-all duration-300"
         >
           <img
-            src="http://localhost:8000/video_feed"
+            src="/api/video_feed"
             alt="Live Feed"
             className="w-full h-full object-cover rounded-2xl bg-[#FFF0E6]"
           />
@@ -72,52 +85,28 @@ export default function Dashboard() {
 
         {/* Cell 3: Production Chart */}
         <div
-          className="md:col-span-2 md:row-span-1 bg-[#FFFFFF] border border-[#E5E5E5] rounded-3xl p-4 hover:shadow-lg hover:border-[#FF6B00]/40 transition-all duration-300"
+          className="md:col-span-2 md:row-span-1 bg-[#FFFFFF] border border-[#E5E5E5] rounded-3xl p-4 hover:shadow-lg hover:border-[#FF6B00]/40 transition-all duration-300 min-h-[200px]"
         >
-          <div className="h-full w-full flex flex-col">
-            <div
-              className="flex-1 flex items-end gap-2 px-2 pb-4"
-              role="chart"
-              aria-label="Production Overview"
-            >
-              {chartData.map((point, i) => {
-                const maxVal = Math.max(
-                  ...chartData.map((d) => Math.max(d.good, d.defective))
-                );
-                const goodHeight = (point.good / maxVal) * 100;
-                const defectiveHeight = (point.defective / maxVal) * 100;
-                return (
-                  <div
-                    key={i}
-                    className="flex flex-col items-center gap-1 w-full max-w-[56px]"
-                  >
-                    <div
-                      className="w-full bg-[#FFF0E6] rounded-t-lg relative overflow-hidden"
-                      style={{ height: "100%" }}
-                    >
-                      <div
-                        className="absolute bottom-0 left-0 right-0 bg-[#FF6B00]"
-                        style={{ height: `${goodHeight}%` }}
-                      />
-                      <div
-                        className="absolute bottom-0 left-0 right-0 bg-[#E5E5E5]"
-                        style={{ height: `${defectiveHeight}%` }}
-                      />
-                    </div>
-                    <span className="text-xs text-[#666666]">{point.time}</span>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="flex justify-end gap-4 pt-2 text-xs">
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded bg-[#FF6B00]" /> Good
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded bg-[#E5E5E5]" /> Defective
-              </span>
-            </div>
-          </div>
+          <ChartContainer
+            config={chartConfig}
+            className="h-full w-full min-h-[200px]"
+          >
+            <BarChart data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis dataKey="time" tickLine={false} axisLine={false} />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar
+                dataKey="good"
+                fill="var(--color-good)"
+                radius={[4, 4, 0, 0]}
+              />
+              <Bar
+                dataKey="defective"
+                fill="var(--color-defective)"
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ChartContainer>
         </div>
 
         {/* Cell 4: Defect Breakdown */}

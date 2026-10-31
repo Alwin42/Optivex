@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description: "Vision based defect detection system",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
