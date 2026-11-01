@@ -13,7 +13,7 @@ app = FastAPI(title="RETINA Vision API")
 # 2. Enable CORS for Next.js frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Change to your Vercel URL later
+    allow_origins=["http://localhost:3000"], 
     allow_methods=["*"],
     allow_headers=["*"],
 )
